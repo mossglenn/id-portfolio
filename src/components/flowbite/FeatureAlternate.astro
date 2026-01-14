@@ -1,0 +1,119 @@
+---
+/**
+ * Flowbite Feature Block with Alternate Image
+ *
+ * A feature section with an image on one side and a feature list on the other.
+ * The layout alternates based on the `imagePosition` prop.
+ *
+ * @see https://flowbite.com/blocks/marketing/feature/
+ */
+
+export interface FeatureItem {
+  title: string;
+  description: string;
+}
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  imageAlt?: string;
+  imagePosition?: "left" | "right";
+  features?: FeatureItem[];
+}
+
+const {
+  title = "What I Do",
+  description = "I specialize in building modern web applications with a focus on performance, accessibility, and great user experience.",
+  image = "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/features/feature-office-long.png",
+  imageAlt = "Feature illustration",
+  imagePosition = "right",
+  features = [
+    {
+      title: "Frontend Development",
+      description: "Building responsive, accessible interfaces with modern frameworks.",
+    },
+    {
+      title: "UI/UX Design",
+      description: "Designing intuitive user experiences with focus on usability.",
+    },
+    {
+      title: "Performance Optimization",
+      description: "Ensuring fast load times and smooth interactions.",
+    },
+  ],
+} = Astro.props;
+
+const isImageLeft = imagePosition === "left";
+---
+
+<section id="features" class="bg-white dark:bg-gray-900">
+  <div class="mx-auto max-w-screen-xl items-center gap-8 px-4 py-8 sm:py-16 md:grid md:grid-cols-2 lg:px-6 xl:gap-16">
+    {
+      isImageLeft && (
+        <img class="w-full rounded-lg dark:hidden" src={image} alt={imageAlt} />
+      )
+    }
+    {
+      isImageLeft && (
+        <img
+          class="hidden w-full rounded-lg dark:block"
+          src={image}
+          alt={imageAlt}
+        />
+      )
+    }
+
+    <div class={isImageLeft ? "mt-4 md:mt-0" : ""}>
+      <h2 class="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+        {title}
+      </h2>
+      <p class="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">
+        {description}
+      </p>
+      <ul role="list" class="space-y-4 border-t border-gray-200 pt-8 dark:border-gray-700">
+        {
+          features.map((feature) => (
+            <li class="flex space-x-3">
+              <svg
+                class="h-5 w-5 flex-shrink-0 text-blue-600 dark:text-blue-500"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">
+                {feature.title}
+                {feature.description && (
+                  <span class="block text-sm font-normal text-gray-500 dark:text-gray-400">
+                    {feature.description}
+                  </span>
+                )}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    {
+      !isImageLeft && (
+        <img class="mt-4 w-full rounded-lg md:mt-0 dark:hidden" src={image} alt={imageAlt} />
+      )
+    }
+    {
+      !isImageLeft && (
+        <img
+          class="mt-4 hidden w-full rounded-lg md:mt-0 dark:block"
+          src={image}
+          alt={imageAlt}
+        />
+      )
+    }
+  </div>
+</section>

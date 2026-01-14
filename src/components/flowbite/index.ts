@@ -8,7 +8,21 @@
  * @see https://flowbite.com/docs/components/
  */
 
-// Export components as they are added
-// Example:
-// export { default as Button } from './Button.astro';
-// export { default as Modal } from './Modal.astro';
+// Layout Components
+export { default as Header } from "./Header.astro";
+export { default as Footer } from "./Footer.astro";
+
+// Hero Components
+export { default as HeroCarousel } from "./HeroCarousel.astro";
+
+// Interactive Components
+export { default as Carousel } from "./Carousel.astro";
+
+// Feature Components
+export { default as FeatureAlternate } from "./FeatureAlternate.astro";
+
+// Re-export types for convenience
+export type { NavLink } from "./Header.astro";
+export type { Slide } from "./HeroCarousel.astro";
+export type { FeatureItem } from "./FeatureAlternate.astro";
+export type { FooterLink, FooterColumn, SocialLink } from "./Footer.astro";

@@ -1,9 +1,9 @@
 import js from "@eslint/js";
+import typescriptPlugin from "@typescript-eslint/eslint-plugin";
+import typescriptParser from "@typescript-eslint/parser";
 import astroPlugin from "eslint-plugin-astro";
 import reactPlugin from "eslint-plugin-react";
 import reactHooksPlugin from "eslint-plugin-react-hooks";
-import typescriptPlugin from "@typescript-eslint/eslint-plugin";
-import typescriptParser from "@typescript-eslint/parser";
 import globals from "globals";
 
 export default [
@@ -16,6 +16,7 @@ export default [
       "pnpm-lock.yaml",
       "package-lock.json",
       "yarn.lock",
+      "public/vendor/",
     ],
   },
 
