@@ -1,7 +1,7 @@
 ---
-import "../styles/global.css";
 import "flowbite";
-import { Header, Footer } from "../components/flowbite";
+import { Footer, Header } from "../components/flowbite";
+import "../styles/global.css";
 
 interface Props {
   title?: string;
@@ -25,8 +25,7 @@ const { title = "Portfolio" } = Astro.props;
       <slot />
     </main>
     <Footer />
-        <script src="/vendor/flowbite.min.js"></script>
-
+    <script src="/src/vendor/flowbite.min.js"></script>
   </body>
 </html>
 
