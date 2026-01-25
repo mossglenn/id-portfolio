@@ -1,0 +1,152 @@
+---
+interface Props {
+  title?: string;
+  variant?: 'default' | 'key-learning' | 'success' | 'warning';
+  className?: string;
+}
+
+const {
+  title,
+  variant = 'default',
+  className = '',
+} = Astro.props;
+
+const icons = {
+  'default': `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>`,
+  'key-learning': `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>`,
+  'success': `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`,
+  'warning': `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>`,
+};
+---
+
+<div class={`insight-card insight-card--${variant} ${className}`}>
+  {title && (
+    <div class="insight-header">
+      <span class="insight-icon" set:html={icons[variant]} />
+      <h3 class="insight-title">{title}</h3>
+    </div>
+  )}
+
+  <div class="insight-content">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .insight-card {
+    padding: var(--spacing-6, 1.5rem);
+    border-radius: var(--radius-lg, 12px);
+    border: 1px solid var(--insight-border-color);
+    background: var(--insight-background);
+    margin: var(--spacing-6, 1.5rem) 0;
+  }
+
+  .insight-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3, 0.75rem);
+    margin-bottom: var(--spacing-4, 1rem);
+  }
+
+  .insight-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--insight-icon-color);
+  }
+
+  .insight-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-text-primary, #111827);
+    margin: 0;
+  }
+
+  .insight-content {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary, #374151);
+  }
+
+  .insight-content :global(> *:first-child) {
+    margin-top: 0;
+  }
+
+  .insight-content :global(> *:last-child) {
+    margin-bottom: 0;
+  }
+
+  .insight-content :global(p) {
+    margin-bottom: 0.75rem;
+  }
+
+  .insight-content :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .insight-content :global(ul) {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+  }
+
+  .insight-content :global(li) {
+    margin-bottom: 0.5rem;
+  }
+
+  .insight-content :global(strong) {
+    font-weight: 600;
+    color: var(--color-text-primary, #111827);
+  }
+
+  /* Variants */
+  .insight-card--default {
+    --insight-border-color: var(--color-border, #e5e7eb);
+    --insight-background: var(--color-background-subtle, #f9fafb);
+    --insight-icon-color: var(--color-text-tertiary, #6b7280);
+  }
+
+  .insight-card--key-learning {
+    --insight-border-color: var(--color-primary, #2563eb);
+    --insight-background: color-mix(in srgb, var(--color-primary, #2563eb) 5%, transparent);
+    --insight-icon-color: var(--color-primary, #2563eb);
+  }
+
+  .insight-card--success {
+    --insight-border-color: var(--color-success, #059669);
+    --insight-background: color-mix(in srgb, var(--color-success, #059669) 5%, transparent);
+    --insight-icon-color: var(--color-success, #059669);
+  }
+
+  .insight-card--warning {
+    --insight-border-color: var(--color-warning, #ea580c);
+    --insight-background: color-mix(in srgb, var(--color-warning, #ea580c) 5%, transparent);
+    --insight-icon-color: var(--color-warning, #ea580c);
+  }
+
+  @media (max-width: 640px) {
+    .insight-card {
+      padding: var(--spacing-4, 1rem);
+    }
+
+    .insight-title {
+      font-size: 1rem;
+    }
+
+    .insight-content {
+      font-size: 0.875rem;
+    }
+  }
+
+  @media print {
+    .insight-card {
+      page-break-inside: avoid;
+      border-color: #000;
+      background: transparent;
+    }
+
+    .insight-icon {
+      display: none;
+    }
+  }
+</style>

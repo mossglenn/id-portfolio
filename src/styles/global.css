@@ -3,3 +3,36 @@
 @plugin "flowbite/plugin";
 @plugin "flowbite-typography";
 @source "../../node_modules/flowbite";
+
+:root {
+  /* Spacing */
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+  --spacing-page-inline: 1.5rem;
+
+  /* Colors */
+  --color-text-primary: #111827;
+  --color-text-secondary: #374151;
+  --color-text-tertiary: #6b7280;
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-success: #059669;
+  --color-warning: #ea580c;
+  --color-background: #ffffff;
+  --color-background-subtle: #f9fafb;
+  --color-background-elevated: #f1f5f9;
+  --color-border: #e5e7eb;
+
+  /* Border radius */
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  /* Max widths */
+  --max-width-content: 1200px;
+  --max-width-wide: 1400px;
+}

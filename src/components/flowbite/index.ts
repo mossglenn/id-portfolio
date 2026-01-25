@@ -9,8 +9,8 @@
  */
 
 // Layout Components
-export { default as Header } from "./Header.astro";
 export { default as Footer } from "./Footer.astro";
+export { default as Header } from "./Header.astro";
 
 // Hero Components
 export { default as HeroCarousel } from "./HeroCarousel.astro";
@@ -21,8 +21,12 @@ export { default as Carousel } from "./Carousel.astro";
 // Feature Components
 export { default as FeatureAlternate } from "./FeatureAlternate.astro";
 
+// Contact Components
+export { default as ContactForm } from "./ContactForm.astro";
+
 // Re-export types for convenience
+export type { FeatureItem } from "./FeatureAlternate.astro";
+export type { FooterColumn, FooterLink, SocialLink } from "./Footer.astro";
 export type { NavLink } from "./Header.astro";
 export type { Slide } from "./HeroCarousel.astro";
-export type { FeatureItem } from "./FeatureAlternate.astro";
-export type { FooterLink, FooterColumn, SocialLink } from "./Footer.astro";
+

@@ -1,0 +1,158 @@
+---
+interface TableRow {
+  [key: string]: string | number;
+}
+
+interface Props {
+  data: TableRow[];
+  caption?: string;
+  className?: string;
+}
+
+const { data, caption, className = "" } = Astro.props;
+
+// Extract headers from first data row
+const headers = data.length > 0 ? Object.keys(data[0]) : [];
+---
+
+<div class={`data-table-container ${className}`}>
+  <table class="data-table">
+    {caption && <caption class="table-caption">{caption}</caption>}
+
+    <thead class="table-head">
+      <tr>
+        {
+          headers.map((header) => (
+            <th class="table-header">
+              {/* Convert snake_case or camelCase to Title Case */}
+              {header
+                .replace(/([A-Z])/g, " $1")
+                .replace(/^./, (str) => str.toUpperCase())}
+            </th>
+          ))
+        }
+      </tr>
+    </thead>
+
+    <tbody class="table-body">
+      {
+        data.map((row) => (
+          <tr class="table-row">
+            {headers.map((header, index) =>
+              index === 0 ? (
+                <th class="table-row-header" scope="row">
+                  {row[header]}
+                </th>
+              ) : (
+                <td class="table-cell">{row[header]}</td>
+              ),
+            )}
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .data-table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin: var(--spacing-6, 1.5rem) 0;
+    border-radius: var(--radius-lg, 12px);
+    border: 1px solid var(--color-border, #e5e7eb);
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+  }
+
+  .table-caption {
+    padding: var(--spacing-4, 1rem);
+    text-align: left;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-tertiary, #6b7280);
+    background: var(--color-background-subtle, #f9fafb);
+    border-bottom: 1px solid var(--color-border, #e5e7eb);
+  }
+
+  .table-head {
+    background: var(--color-background-subtle, #f9fafb);
+    border-bottom: 2px solid var(--color-border, #e5e7eb);
+  }
+
+  .table-header {
+    padding: var(--spacing-3, 0.75rem) var(--spacing-4, 1rem);
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: var(--color-text-tertiary, #6b7280);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  .table-body .table-row {
+    border-bottom: 1px solid var(--color-border, #e5e7eb);
+    transition: background-color 0.15s ease;
+  }
+
+  .table-body .table-row:last-child {
+    border-bottom: none;
+  }
+
+  .table-body .table-row:hover {
+    background: var(--color-background-subtle, #f9fafb);
+  }
+
+  .table-row-header {
+    padding: var(--spacing-3, 0.75rem) var(--spacing-4, 1rem);
+    font-weight: 600;
+    color: var(--color-text-primary, #111827);
+    background: var(--color-background, #ffffff);
+  }
+
+  .table-cell {
+    padding: var(--spacing-3, 0.75rem) var(--spacing-4, 1rem);
+    color: var(--color-text-secondary, #374151);
+  }
+
+  /* Numeric cell alignment */
+  .table-cell:has(> :is(number, [data-type="number"])) {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Highlight cells with specific values */
+  .table-cell:has(> strong),
+  .table-row-header:has(> strong) {
+    font-weight: 600;
+    color: var(--color-primary, #2563eb);
+  }
+
+  @media (max-width: 640px) {
+    .table-header,
+    .table-row-header,
+    .table-cell {
+      padding: var(--spacing-2, 0.5rem) var(--spacing-3, 0.75rem);
+    }
+
+    .data-table {
+      font-size: 0.75rem;
+    }
+  }
+
+  @media print {
+    .data-table-container {
+      border: 1px solid #000;
+      page-break-inside: avoid;
+    }
+
+    .table-body .table-row:hover {
+      background: transparent;
+    }
+  }
+</style>
