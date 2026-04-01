@@ -68,7 +68,7 @@ pnpm astro [command]
 ### Styling Architecture
 
 - **Tailwind CSS v4**: Uses the new CSS-first configuration approach (configured in `src/styles/global.css`)
-- **Flowbite**: Component library for UI elements, loaded via CDN in Layout.astro
+- **Flowbite**: Component library for UI elements, bundled locally via `import "flowbite"` in Layout.astro
 - **Flowbite Typography**: Typography plugin for content styling
 - **Custom utility**: `cn()` helper in `src/lib/cn.ts` combines `clsx` and `tailwind-merge` for conditional class merging
 
@@ -84,8 +84,12 @@ pnpm astro [command]
 src/
 ├── assets/          # Static assets (images, SVGs)
 ├── components/      # Astro and React components
+│   ├── flowbite/   # Adapted Flowbite UI components
+│   ├── mdx/        # Components for use in MDX content
+│   ├── ui/         # Custom reusable UI primitives
 │   ├── *.astro     # Astro components (server-rendered by default)
 │   └── *.tsx       # React components (require client: directive for hydration)
+├── content/         # Content collections (MDX/Markdown files)
 ├── layouts/         # Page layouts (Layout.astro is the base layout)
 ├── lib/            # Utility functions
 ├── pages/          # File-based routing (index.astro = homepage)
@@ -131,7 +135,7 @@ import Layout from "@/layouts/Layout.astro";
 ### Astro Islands (Partial Hydration)
 
 - React components must use `client:*` directives to hydrate on the client
-- Example: `<Counter client:load />` in Welcome.astro:30
+- Example: `<Counter client:load />` in Welcome.astro:31
 - Available directives: `client:load`, `client:idle`, `client:visible`, `client:media`, `client:only`
 
 ### Tailwind CSS v4 Configuration
@@ -142,7 +146,7 @@ import Layout from "@/layouts/Layout.astro";
 
 ### Component Styling
 
-- Astro components can use scoped `<style>` tags (see Welcome.astro:47-213)
+- Astro components can use scoped `<style>` tags (see Welcome.astro)
 - React components use Tailwind utility classes
 - Global styles imported in Layout.astro:2
 
@@ -160,6 +164,13 @@ import Layout from "@/layouts/Layout.astro";
 - **Assets**: Static files go in `public/`, imported assets go in `src/assets/`
 - **TypeScript**: All `.astro`, `.tsx`, and `.ts` files support TypeScript
 - **Hot Reload**: Dev server supports HMR for fast development iteration
+
+## Claude Code Setup
+
+- **Account**: Claude Pro subscription (not API/CLI)
+- **Environment**: VS Code extension
+- **MCP Servers**: Flowbite MCP configured in `.mcp.json` (gitignored)
+- **Flowbite Components**: Adapted components go in `src/components/flowbite/`
 
 ## VS Code Configuration
 
